@@ -1,4 +1,6 @@
 ﻿using Application.Features.Brands.Rules;
+using Core.Application.Pipelines.Validation;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -20,12 +22,12 @@ namespace Application
 
             services.AddScoped<BrandBusinessRules>();
 
-            //services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             //services.addtransient(typeof(ıpipelinebehavior<,>), typeof(authorizationbehavior<,>));
             //services.addtransient(typeof(ıpipelinebehavior<,>), typeof(cachingbehavior<,>));
             //services.addtransient(typeof(ıpipelinebehavior<,>), typeof(cacheremovingbehavior<,>));
             //services.addtransient(typeof(ıpipelinebehavior<,>), typeof(loggingbehavior<,>));
-            //services.addtransient(typeof(ıpipelinebehavior<,>), typeof(requestvalidationbehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
 
             return services;
 
